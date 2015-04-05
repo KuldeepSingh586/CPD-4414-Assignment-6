@@ -66,16 +66,16 @@ public class ProductREST {
         Response response;
         try {
             productList.remove(id);
-            response= Response.ok().build();
+            response = Response.ok().build();
         } catch (Exception ex) {
-            response= Response.status(500).build();
+            response = Response.status(500).build();
         }
         return response;
     }
-    
+
     @POST
     @Consumes("application/json")
-    public Response add( JsonObject json) {
+    public Response add(JsonObject json) {
         try {
             productList.add(new Products(json));
             return Response.ok().build();

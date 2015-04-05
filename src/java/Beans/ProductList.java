@@ -98,6 +98,7 @@ public class ProductList {
         }
 
     }
+
     public void set(int productID, Products products) throws Exception {
         int result = doUpdate("Update product SET name =?, description =?, quantity=? WHERE productId=?",
                 products.getName(),
