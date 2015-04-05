@@ -30,7 +30,7 @@ public class ProductREST {
 
     @Inject
     ProductList productList;
-    
+
     @GET
     @Produces("application/json")
     public Response getAll() {
@@ -41,13 +41,15 @@ public class ProductREST {
     @Path("{id}")
     @Produces("application/json")
     public Response getById(@PathParam("id") int id) {
-        return Response.ok(productList.toJson()).build();
+        return Response.ok(productList.get(id).toJSON()).build();
     }
+
     /**
      * set Method take two parameters id and json object
+     *
      * @param id
      * @param json
-     * @return 
+     * @return
      */
     @PUT
     @Path("{id}")
@@ -63,11 +65,13 @@ public class ProductREST {
         }
         return Response.status(500).build();
     }
+
     /**
      * delete method take only parameter i.e id=5 it will delete the product
      * whose id is 5
+     *
      * @param id
-     * @return 
+     * @return
      */
     @DELETE
     @Path("{id}")
@@ -82,10 +86,12 @@ public class ProductREST {
         }
         return response;
     }
+
     /**
      * add method
+     *
      * @param json
-     * @return 
+     * @return
      */
     @POST
     @Consumes("application/json")

@@ -25,7 +25,7 @@ import javax.json.JsonObject;
  */
 @ApplicationScoped
 public class ProductList {
- 
+
     //creating the product List
     private List<Products> productList;
 
@@ -50,10 +50,12 @@ public class ProductList {
 
         }
     }
-   /**
-    * toJson Method
-    * @return json data
-    */
+
+    /**
+     * toJson Method
+     *
+     * @return json data
+     */
     public JsonArray toJson() {
         JsonArrayBuilder json = Json.createArrayBuilder();
         for (Products p : productList) {
@@ -61,26 +63,30 @@ public class ProductList {
         }
         return json.build();
     }
-   /**
-    * 
-    * @param productID
-    * @return result
-    */
+
+    /**
+     *
+     * @param productID
+     * @return result
+     */
     public Products get(int productID) {
         Products result = null;
-        for (Products p : productList) {
+        for (int i = 0; i < productList.size() && result == null; i++) {
+            Products p = productList.get(i);
             if (p.getProductId() == productID) {
                 result = p;
-                break;
+
             }
         }
         return result;
     }
-   /**
-    * add Method add the product into database
-    * @param product
-    * @throws Exception 
-    */
+
+    /**
+     * add Method add the product into database
+     *
+     * @param product
+     * @throws Exception
+     */
     public void add(Products product) throws Exception {
         int result = doUpdate("INSERT INTO product(productId, name,description, quantity) Values(?,?,?,?) ",
                 String.valueOf(product.getProductId()),
@@ -94,18 +100,22 @@ public class ProductList {
         }
 
     }
-   /**
-    * remove method remove the product from database
-    * @param product 
-    */
+
+    /**
+     * remove method remove the product from database
+     *
+     * @param product
+     */
     public void remove(Products product) {
 
         productList.remove(product.getProductId());
     }
+
     /**
      * remove method
+     *
      * @param productId
-     * @throws Exception 
+     * @throws Exception
      */
     public void remove(int productId) throws Exception {
         int result = doUpdate("DELETE FROM product WHERE productId=?", String.valueOf(productId));
@@ -118,11 +128,13 @@ public class ProductList {
         }
 
     }
+
     /**
      * set method update the product
+     *
      * @param productID
      * @param products
-     * @throws Exception 
+     * @throws Exception
      */
     public void set(int productID, Products products) throws Exception {
         int result = doUpdate("Update product SET name =?, description =?, quantity=? WHERE productId=?",
