@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 24, 2015 at 03:33 AM
+-- Generation Time: Apr 05, 2015 at 03:40 AM
 -- Server version: 5.5.39
 -- PHP Version: 5.4.31
 
@@ -27,8 +27,8 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `product` (
-  `ProductID` int(10) NOT NULL AUTO_INCREMENT,
-  `name` varchar(10) NOT NULL,
+  `productId` int(10) NOT NULL,
+  `name` varchar(100) NOT NULL,
   `quantity` int(10) NOT NULL,
   `description` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -37,11 +37,16 @@ CREATE TABLE IF NOT EXISTS `product` (
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`ProductID`, `name`, `quantity`, `description`) VALUES
-(2, 'ghdg', 12, 'asd'),
-(4, 'lorem', 18, 'lorem ipsum'),
-(68, 'ghdg', 12, 'asd'),
-(89, 'ghdg', 12, 'asd');
+INSERT INTO `product` (`productId`, `name`, `quantity`, `description`) VALUES
+(4, 'kuldeep', 12, 'student'),
+(68, 'kul', 12, 'singh'),
+(89, 'ghdg', 12, 'asd'),
+(90, 'saini', 13, 'ds'),
+(91, 'saini', 30, 'ds'),
+(92, 'saini', 30, 'ds'),
+(93, 'kul', 12, 'singh'),
+(1000, 'kul', 12, 'singh'),
+(5129, '1/4" Stainless Bolt', 423, 'Quarter-inch stainless bolt');
 
 --
 -- Indexes for dumped tables
@@ -51,9 +56,8 @@ INSERT INTO `product` (`ProductID`, `name`, `quantity`, `description`) VALUES
 -- Indexes for table `product`
 --
 ALTER TABLE `product`
- ADD PRIMARY KEY (`ProductID`);
+ ADD PRIMARY KEY (`productId`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
