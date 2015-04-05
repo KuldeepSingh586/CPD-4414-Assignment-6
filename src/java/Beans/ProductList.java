@@ -29,15 +29,15 @@ public class ProductList {
     private List<Products> productList;
 
     public ProductList() {
-        productList=new ArrayList<>();
+        productList = new ArrayList<>();
         try (Connection conn = Credentials.getConnection()) {
 
             String query = "SELECT * FROM product;";
             PreparedStatement pstmt = conn.prepareStatement(query);
             ResultSet rs = pstmt.executeQuery();
-            
+
             while (rs.next()) {
-              Products  p = new Products(
+                Products p = new Products(
                         rs.getInt("ProductID"),
                         rs.getString("name"),
                         rs.getString("description"),
@@ -69,52 +69,51 @@ public class ProductList {
     }
 
     public void add(Products product) throws Exception {
-        int result=doUpdate("INSERT INTO product(productId, name,description, quantity) Values(?,?,?,?) ",
+        int result = doUpdate("INSERT INTO product(productId, name,description, quantity) Values(?,?,?,?) ",
                 String.valueOf(product.getProductId()),
                 product.getName(),
                 product.getDescription(),
                 String.valueOf(product.getQuantity()));
-        if(result>0) {
-          productList.add(product);  
+        if (result > 0) {
+            productList.add(product);
+        } else {
+            throw new Exception("Error While Inserting Value");
         }
-        else throw new Exception("Error While Inserting Value");
-        
+
     }
-    
 
     public void remove(Products product) {
-    
+
         productList.remove(product.getProductId());
     }
 
     public void remove(int productId) throws Exception {
-          int result=doUpdate("DELETE FROM product WHERE productId=?",String.valueOf(productId));
-          if(result>0) {
-              Products original=get(productId);
-              productList.remove(original);
-              
-          } 
-          else  throw new Exception("Unable to execute Delete Statement");
-          
-          
-          
-    }  
+        int result = doUpdate("DELETE FROM product WHERE productId=?", String.valueOf(productId));
+        if (result > 0) {
+            Products original = get(productId);
+            productList.remove(original);
+
+        } else {
+            throw new Exception("Unable to execute Delete Statement");
+        }
+
+    }
     public void set(int productID, Products products) throws Exception {
-        int result=doUpdate("Update product SET name =?, description =?, quantity=? WHERE productId=?",
-        products.getName(), 
-        products.getDescription(),
-        String.valueOf(products.getQuantity()),
-       String.valueOf(productID));
-       if(result==1) {
-        Products Origianl = get(productID);
-        Origianl.setName(products.getName());
-        Origianl.setDescription(products.getDescription());
-        Origianl.setQuantity(products.getQuantity());
-       }
-       else throw new Exception("Error with update Statement");
+        int result = doUpdate("Update product SET name =?, description =?, quantity=? WHERE productId=?",
+                products.getName(),
+                products.getDescription(),
+                String.valueOf(products.getQuantity()),
+                String.valueOf(productID));
+        if (result == 1) {
+            Products Origianl = get(productID);
+            Origianl.setName(products.getName());
+            Origianl.setDescription(products.getDescription());
+            Origianl.setQuantity(products.getQuantity());
+        } else {
+            throw new Exception("Error with update Statement");
+        }
     }
 
-   
     /**
      * doUpdate Method accepts two arguments Update the entries in the table
      * 'product'
@@ -136,8 +135,8 @@ public class ProductList {
         }
         return numChanges;
     }
-    
-     /**
+
+    /**
      * resultMethod accepts two arguments It executes the Query get ProductID,
      * name, description, quantity. Used JSON object model and provides methods
      * to add name/value pairs to the object model and to return the resulting
